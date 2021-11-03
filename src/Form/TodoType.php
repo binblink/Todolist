@@ -18,9 +18,7 @@ class TodoType extends AbstractType
             ->add('description')
             ->add('state', CheckboxType::class, [
                 'label' => 'Done',
-                'required' => false]
-            )
-        ;
+                'required' => false]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

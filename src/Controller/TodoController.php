@@ -83,7 +83,7 @@ class TodoController extends AbstractController
      */
     public function delete(Request $request, Todo $todo): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$todo->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $todo->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($todo);
             $entityManager->flush();
