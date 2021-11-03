@@ -20,15 +20,20 @@
                 <td>{{ todo.description }}</td>
             </tr>
             <tr>
-                <th>State</th>
+                <th>Done</th>
                 <td>{{ todo.state ? 'Yes' : 'No' }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('todo_index') }}">back to list</a>
+    {# <a href="{{ path('todo_index') }}">back to list</a> #}   
+    <div class="d-flex justify-content-start w-25">
+        <a class="btn btn-primary me-4" role="button" href="{{ path('todo_index') }}">
+            <i class="bi bi-arrow-left-square"></i>  Back to list
+        </a>
 
-    <a href="{{ path('todo_edit', {'id': todo.id}) }}">edit</a>
+        <a class="btn btn-warning me-4" href="{{ path('todo_edit', {'id': todo.id}) }}">Edit</a>
 
-    {{ include('todo/_delete_form.html.twig') }}
+        {{ include('todo/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

@@ -14,23 +14,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for todo in todos %}
-            <tr>
-                <td>{{ todo.title }}</td>
-                <td class="text-center">{{ todo.state ? 'Yes' : 'No' }}</td>
-                <td class="d-flex justify-content-center">
-                    <a class="btn btn-success me-2" role="button" href="{{ path('todo_show', {'id': todo.id}) }}">Show</a>
-                    <a class="btn btn-warning me-2" role="button" href="{{ path('todo_edit', {'id': todo.id}) }}">Edit</a>
-                    <form method="post" action="{{ path('todo_delete', {'id': todo.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
-                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ todo.id) }}">
-                        <button class="btn btn-danger">Delete</button>
-                    </form>
-                </td>
-            </tr>
-        {% else %}
-            {# <tr>
-                <td colspan="5">no records found</td>
-            </tr> #}
+        {% if not todos %}
              <tr>
                 <td>Do my homework</td>
                 <td class="text-center">Yes</td>
@@ -61,7 +45,36 @@
               
                 </td>
             </tr>
-        {% endfor %}
+        {% else %}
+            {% for todo in todos|filter(todo => todo.state == false)| sort((a,b) => b.id <=> a.id) %}
+                <tr>
+                    <td>{{ todo.title }}</td>
+                    <td class="text-center">{{ todo.state ? 'Yes' : 'No' }}</td>
+                    <td class="d-flex justify-content-center">
+                        <a class="btn btn-success me-2" role="button" href="{{ path('todo_show', {'id': todo.id}) }}">Show</a>
+                        <a class="btn btn-warning me-2" role="button" href="{{ path('todo_edit', {'id': todo.id}) }}">Edit</a>
+                        <form method="post" action="{{ path('todo_delete', {'id': todo.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ todo.id) }}">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            {% for todo in todos|filter(todo => todo.state == true) %}
+                <tr>
+                    <td><strike>{{ todo.title }}</strike></td>
+                    <td class="text-center"><strike>{{ todo.state ? 'Yes' : 'No' }}</strike></td>
+                    <td class="d-flex justify-content-center">
+                        <a class="btn btn-success me-2" role="button" href="{{ path('todo_show', {'id': todo.id}) }}">Show</a>
+                        <a class="btn btn-warning me-2" role="button" href="{{ path('todo_edit', {'id': todo.id}) }}">Edit</a>
+                        <form method="post" action="{{ path('todo_delete', {'id': todo.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ todo.id) }}">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endif %}
         </tbody>
     </table>
 
