@@ -27,6 +27,6 @@
 - You can now access the application from <http://localhost:8080> (or different port according to your local web server settings)
 - Alternatively, if you do not wish to use Wamp, Mamp or Laragon, you can also type ```symfony serve``` from a terminal and then access the project from <http://localhost:8000>
 
-### Try Me
+### Try Me Online
 
 Alternatively you can also access the project here : <https://benjaminsotier.chalets-caviar-estelle-gaits.com/>
